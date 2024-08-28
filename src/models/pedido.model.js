@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize"
 import { con_sequelize } from "../config/conexion-Db.js"
 import { Producto } from "./producto.model.js"
-import { Plato } from "./plato.model.js"
+//import { Plato } from "./plato.model.js"
 import { Pedido_Producto } from "./producto.model.js"
 
 class Pedido extends Model {
@@ -33,23 +33,5 @@ Pedido.init({
     timestamps: true
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export {Pedido}
