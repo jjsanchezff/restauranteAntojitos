@@ -23,13 +23,13 @@ export class ProductoController {
         // )
 
 
-        Producto.findAll({ attributes: ['nombre', 'precio', 'stock', 'createdAt'] })
+        await Producto.findAll({ attributes: ['nombre', 'precio', 'stock', 'createdAt'] })
         .then(prod => {
             const datos = prod.map(prod => {
                 const { nombre, precio, stock, createdAt } = prod.dataValues;
                 return {
                     nombre,
-                    precio, // conversion a float
+                    precio,
                     stock,
                     createdAt: new Date(createdAt).toLocaleString() // Formatea la fecha
                 };
@@ -85,16 +85,18 @@ export class ProductoController {
     static async crearProducto(req, res) {
         const datos = req.body
         console.log(datos)
-
-        Producto.create({
-            nombre: datos.nombre,
-            descripcion: datos.descripcion,
-            precio: datos.precio,
-            stock: datos.stock
-        })
-
-
-        res.status(200).send("todo correcto")
+        try {
+            await Producto.create({
+                nombre: datos.nombre,
+                descripcion: datos.descripcion,
+                precio: datos.precio,
+                stock: datos.stock
+            });
+            res.status(200).send("Todo correcto");
+        } catch (error) {
+            console.log(error.message);
+            res.status(400).send(error.message);
+        }
     }
 
     static async getOne(req, res) {
@@ -110,6 +112,12 @@ export class ProductoController {
         res.send("Router de productos")
     }
 
+    /**
+     * Calcula el precio total de un producto.
+     * @param {Object} req - El objeto de solicitud.
+     * @param {Object} res - El objeto de respuesta.
+     * @returns {void}
+     */
     static async calcularPrecio(req, res) {
         const idProd = req.params.id
         const prod = await Producto.findByPk(idProd)
