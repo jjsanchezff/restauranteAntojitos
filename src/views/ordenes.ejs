@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+    <div class="container">
+        <h1>Órdenes</h1>
+        <p>Seleccione una mesa</p>
+        <div class="container">
+            <% for(let i=0; i<allMesas.length; i++) {%>
+                <% let clase; %>
+                <%if (allMesas[i].estado == 0){%>
+                    <%clase = "mesaLib";%>
+                <%}else{%>
+                    <%clase = "mesaOcup";%>
+                <%}%>
+                <a href="/registrar-orden?mesa=<%= allMesas[i].numero %>" class="<%= clase %>" id="mesa<%= i %>">
+                    <div>
+                        <h5>Mesa <%= allMesas[i].numero %></h5>
+                        <p>Capacidad: <%= allMesas[i].capacidad %></p>
+                    </div>
+                </a>
+            <%}%>
+        </div>
+    </div>
+<%- include('partials/footer'); -%>

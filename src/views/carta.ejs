@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <h1>Carta</h1>
+    <form class="w-100 me-3 my-3 mb-3" role="search">
+        <input type="search" class="form-control fs-5" placeholder="Buscar..." aria-label="Search">
+    </form>
+    <div class="botonesfiltro d-flex gap-2 pb-3">
+        <button class="btn btn-light rounded-pill px-3" type="button">Todos</button>
+        <button class="btn btn-light rounded-pill px-3" type="button">Platos</button>
+        <button class="btn btn-light rounded-pill px-3" type="button">Productos</button>
+    </div>
+    <div class="container d-block">
+        <% for(let i=0; i<allPlatos.length; i++) {%>
+            <div class="plato pt-5" id="plato">
+                <h5><%=allPlatos[i].nombre%></h5>
+                <p>s/. <%=allPlatos[i].precio%></p>
+                <p class="info-adicional"><%= allPlatos[i].descripcion %></p>
+            </div>
+        <%}%>
+    </div>
+</div>
+<%- include('partials/footer'); -%>
