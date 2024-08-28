@@ -4,6 +4,9 @@ import morgan from 'morgan'
 import productoRouter from '../router/producto.router.js'
 import platoRouter from '../router/plato.router.js'
 import bdRouter from '../router/bd.router.js'
+import pedidoRouter from '../router/pedido.router.js'
+
+
 
 //initialization
 const app = express();
@@ -22,6 +25,7 @@ app.get('/', (req, res) => {
 })
 app.use("/api/v1", productoRouter)
 app.use("/api/v1", platoRouter)
+app.use("/api/v1", pedidoRouter)
 app.use("/api/v1/bd/", bdRouter)
 
 

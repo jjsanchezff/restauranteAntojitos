@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize"
 import { con_sequelize } from "../config/conexion-Db.js"
+import { Pedido } from "./pedido.model.js";
 
 class Plato extends Model {
     // Método de instancia para calcular el valor total del stock
@@ -42,4 +43,55 @@ Plato.init({
     timestamps: true, // Se usa timestamp en esa tabla
 })
 
-export {Plato}
+class Pedido_Plato extends Model {
+
+}
+
+Pedido_Plato.init({
+    idPedido: {
+        type:DataTypes.INTEGER,
+        references: {
+            model: Pedido,
+            key: 'idPedido'
+        }
+
+    },
+    idPlato: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Plato,
+            key: 'idPlato'
+        }
+    },
+    cantidad: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    precioUnitario: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    sequelize: con_sequelize,
+    modelName: "Pedido_Plato",
+    tableName: "pedido_plato",
+    timestamps: true
+})
+
+Pedido.belongsToMany(Plato, {
+    through: {
+        model: Pedido_Plato,
+        unique: false
+    },
+    foreignKey: 'idPedido'
+})
+
+Plato.belongsToMany(Pedido, {
+    through: {
+        model: Pedido_Plato,
+        unique: false
+    },
+    foreignKey: 'idPlato'
+})
+
+export {Plato, Pedido_Plato}

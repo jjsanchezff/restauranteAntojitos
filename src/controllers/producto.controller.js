@@ -69,6 +69,8 @@ export class ProductoController {
         // )
     }
 
+
+    
     static async crearProductos(req, res) {
         const datos = req.body;
         console.log(datos);
@@ -92,6 +94,33 @@ export class ProductoController {
                 precio: datos.precio,
                 stock: datos.stock
             });
+            res.status(200).send("Todo correcto");
+        } catch (error) {
+            console.log(error.message);
+            res.status(400).send(error.message);
+        }
+    }
+
+    static async crearProductoYObtenerId(req, res) {
+        const datos = req.body
+        console.log(datos)
+        try {
+            const nuevoProducto = await Producto.build({
+                nombre: datos.nombre,
+                descripcion: datos.descripcion,
+                precio: datos.precio,
+                stock: datos.stock
+            });
+            await nuevoProducto.save();
+            console.log("Id:" + nuevoProducto.idProducto);
+
+
+            // const nuevoProducto = await Producto.create({
+            //     nombre: datos.nombre,
+            //     descripcion: datos.descripcion,
+            //     precio: datos.precio,
+            //     stock: datos.stock
+            // });
             res.status(200).send("Todo correcto");
         } catch (error) {
             console.log(error.message);
@@ -132,6 +161,20 @@ export class ProductoController {
         console.log(precioTotal)
         res.send("Router de productos")
     }
+    static async crearMuchosProductos(req, res) {
+        const datos = req.body
+        console.log(datos.productos)
+        // if (!datos || !Array.isArray(datos) || datos.length === 0) {
+        //     return res.status(400).send("Datos inválidos: se requiere un array de platos.");
+        // }
 
+        try {
+            const platos = await Producto.bulkCreate(datos.productos)
+            res.status(200).send("Se crearon los productos correctamente")
+        } catch (error) {
+            console.log(error)
+            res.status(500).send("Error al crear los productos")
+        }
+    }
 
 }

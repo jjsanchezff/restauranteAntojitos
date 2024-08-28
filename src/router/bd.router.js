@@ -2,6 +2,8 @@ import { Router } from "express"
 import { con_sequelize } from "../config/conexion-Db.js"
 import {Mesa} from "../models/mesa.model.js"
 import { Pedido } from "../models/pedido.model.js"
+import { Rol } from "../models/rol.js"
+import { Usuario } from "../models/usuario.js"
 
 const bdRouter = Router()
 

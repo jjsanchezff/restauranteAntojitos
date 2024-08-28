@@ -12,6 +12,7 @@ productoRouter.get("/productos", ProductoController.getAll)
 productoRouter.get("/productos/uno/:id", ProductoController.getOne)
 productoRouter.get("/productos/:id", ProductoController.calcularPrecio)
 
+
 // Obtener un producto
 productoRouter.get("/productos", (req, res) => {
     res.send("Router de productos")
@@ -21,6 +22,11 @@ productoRouter.get("/productos", (req, res) => {
 // Crear un producto
 productoRouter.post("/productos", ProductoController.crearProducto)
 productoRouter.post("/productos/muchos", ProductoController.crearProductos) // Crear muchos productos
+productoRouter.post("/productos/crear", ProductoController.crearProductoYObtenerId)
+
+// crear muchos productos
+productoRouter.post("/productos/crear/muchos", ProductoController.crearMuchosProductos)
+
 
 
 // Reescribe un producto
