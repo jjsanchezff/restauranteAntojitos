@@ -4,6 +4,7 @@ import {Mesa} from "../models/mesa.model.js"
 import { Pedido } from "../models/pedido.model.js"
 import { Rol } from "../models/rol.js"
 import { Usuario } from "../models/usuario.js"
+import { Venta } from "../models/venta.model.js"
 
 const bdRouter = Router()
 

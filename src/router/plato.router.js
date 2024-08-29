@@ -8,4 +8,6 @@ platoRouter.post("/platos/crear/uno", PlatoController.crearPlato)
 
 platoRouter.post("/platos/crear/muchos", PlatoController.crearMuchosPlatos)
 
+platoRouter.get("/platos/recibir", PlatoController.recibirPlatosBD)
+
 export default platoRouter

@@ -35,15 +35,14 @@ Producto.init({
     sequelize: con_sequelize,
     modelName: "Producto",
     tableName: "producto",
-    timestamps: true, // No se usa timestamp en esa tabla
+    timestamps: false, // No se usa timestamp en esa tabla
 })
 
 
 class Pedido_Producto extends Model {
-    // Método de instancia para calcular el valor total del stock
-    // calcularValorTotal() {
-    //     return this.precioUnitario * this.cantidad;
-    // }
+    calcularSubTotal() {
+        return this.precioUnitario * this.cantidad;
+    }
 }
 
 Pedido_Producto.init({

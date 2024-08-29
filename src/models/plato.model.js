@@ -40,11 +40,13 @@ Plato.init({
     sequelize: con_sequelize,
     modelName: "Plato",
     tableName: "plato",
-    timestamps: true, // Se usa timestamp en esa tabla
+    timestamps: false, // Se usa timestamp en esa tabla
 })
 
 class Pedido_Plato extends Model {
-
+    calcularSubTotal() {
+        return this.precioUnitario * this.cantidad;
+    }
 }
 
 Pedido_Plato.init({
@@ -69,7 +71,7 @@ Pedido_Plato.init({
     },
     precioUnitario: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize: con_sequelize,

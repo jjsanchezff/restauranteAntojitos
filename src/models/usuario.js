@@ -43,7 +43,7 @@ Usuario.init({
     sequelize: con_sequelize,
     modelName: "Usuario",
     tableName: "usuario",
-    timestamps: false
+    timestamps: true
 })
 
 export {Usuario}

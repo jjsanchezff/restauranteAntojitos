@@ -54,4 +54,10 @@ export class PlatoController {
             res.status(500).send("Error al crear los platos")
         }
     }
+
+    static async recibirPlatosBD(req, res) {
+        const platos = await Plato.findAll()
+        res.status(200).json(platos)
+    }
+
 }
