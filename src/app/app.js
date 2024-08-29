@@ -10,6 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs'
 import favicon from 'serve-favicon'
+import bodyParser from 'body-parser'
 
 
 
@@ -31,18 +32,21 @@ app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
 // Middlewares
 app.use(morgan("dev"))
 app.use(express.urlencoded({extended: true}))
-app.use(express.json()) // Parsea las solicitudes JSON
+app.use(bodyParser.json())
+// app.use(express.json()) // Parsea las solicitudes JSON
 
 // Rutas
 app.get('/', (req, res) => {
     res.status(200).send("Cargo correctametne")
 })
+
+app.use("/", indexRouter)
 app.use("/api/v1", productoRouter)
 app.use("/api/v1", platoRouter)
 app.use("/api/v1", pedidoRouter)
 app.use("/api/v1/bd/", bdRouter)
+// app.use("/", authRouter)
 // app.use("/home", indexRouter)
-app.use("/", indexRouter)
 
 // Mensaje por defecto si no existe
 app.use((req, res) => {

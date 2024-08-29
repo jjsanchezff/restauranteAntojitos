@@ -2,5 +2,71 @@
     <div class="container">
         <h1 class="pt-4">Pedidos</h1>
         <p>Seleccione una mesa</p>
+        
+        <form id="formulario">
+            <!-- Aquí puedes añadir los campos del formulario -->
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <button type="submit">Agregar a la lista</button>
+        </form>
+        
+        <ul id="lista-pedidos"></ul>
+        
+        <button id="enviar-lista">Enviar Lista</button>
     </div>
 <%- include('partials/footer'); -%>
+
+<script>
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe
+        
+        // Obtén los valores ingresados en los campos del formulario
+        var nombre = document.getElementById('nombre').value;
+        var email = document.getElementById('email').value;
+        
+        // Crea un nuevo elemento de lista con los datos del pedido
+        var nuevoPedido = document.createElement('li');
+        nuevoPedido.textContent = 'Nombre: ' + nombre + ', Email: ' + email;
+        
+        // Agrega el nuevo pedido a la lista de pedidos
+        var listaPedidos = document.getElementById('lista-pedidos');
+        listaPedidos.appendChild(nuevoPedido);
+        
+        // Limpia los campos del formulario
+        document.getElementById('nombre').value = '';
+        document.getElementById('email').value = '';
+    });
+
+    document.getElementById('enviar-lista').addEventListener('click', function() {
+        var listaPedidos = document.getElementById('lista-pedidos');
+        var pedidos = [];
+        
+        // Recorre todos los elementos de la lista y extrae los datos
+        listaPedidos.querySelectorAll('li').forEach(function(item) {
+            var texto = item.textContent;
+            var [nombre, email] = texto.replace('Nombre: ', '').replace('Email: ', '').split(', ');
+            pedidos.push({ nombre, email });
+        });
+        
+        // Envía los datos a la API
+        fetch('/api/pedidos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pedidos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Succeeeeess:', data);
+            // Aquí puedes manejar la respuesta de la API
+        })
+        .catch((error) => {
+            console.error('Errorrro:', error);
+        });
+    });
+</script>

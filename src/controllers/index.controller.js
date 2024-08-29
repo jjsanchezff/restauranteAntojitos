@@ -32,8 +32,24 @@ export class IndexController {
         res.render("registrar-orden", { mesa: mesaSeleccionada,allPlatos: platos3});
     }
 
+    static cargarPedidos(req, res) {
+        res.render("pedidos");
+    }
+
+
+    static mostrarConsola(req, res) {
+        try {
+            console.log("datos recibidos")
+            console.log(req.body);
+            console.log(req.body);
+            res.send("Datos recibidos");
+        } catch (error) {
+            console.log(error);
+            res.send("Error al recibir los datos");
+            }
+        }
 
 }
 
 
-export default IndexController;
+export default IndexController
