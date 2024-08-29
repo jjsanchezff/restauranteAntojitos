@@ -87,7 +87,7 @@ header li :hover {
     transform: translateY(-10px);
 }
 
-.plato:active{
+/* .plato:active{
     transform: scale(1.2);
     padding: 2rem 1rem 1rem 1rem;
     font-size: 15px;
@@ -103,6 +103,13 @@ header li :hover {
 
 .plato:active .info-adicional{
     display: block;
+} */
+
+.btn-toggle {
+    position: absolute;
+    top: 25rem; /* Adjust top margin as needed */
+    right: 0px; /* Adjust right margin as needed */
+    /*z-index: 1050;  Ensure the button is above other content */
 }
 
 .botonesfiltro button{

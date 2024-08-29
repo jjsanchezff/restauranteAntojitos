@@ -1,28 +1,134 @@
 <%- include('partials/header'); -%>
 <div class="container">
-    <h1>Registrar Pedido</h1>
+    <h1 class="pt-5">Registrar Pedido</h1>
     <div>
         <h3>Mesa <%= mesa.numero %></h2>
         <p>Capacidad: <%= mesa.capacidad %></p>
     </div>
     <!-- Aquí puedes agregar más contenido relacionado con el pedido -->
-    <form class="w-100 me-3 my-3 mb-3" role="search">
-        <input type="search" class="form-control fs-5" placeholder="Buscar..." aria-label="Search">
-    </form>
-    <div class="botonesfiltro d-flex gap-2 pb-3">
-        <button class="btn btn-light rounded-pill px-3" type="button">Todos</button>
-        <button class="btn btn-light rounded-pill px-3" type="button">Platos</button>
-        <button class="btn btn-light rounded-pill px-3" type="button">Productos</button>
-    </div>
-    <div class="container">
-        <% for(let i=0; i<allPlatos.length; i++) {%>
-            <div class="plato" id="plato<%=i%>">
-                <button class="rounded-circle" type="button">+</button>
-                <h5><%=allPlatos[i].nombre%></h5>
-                <p>s/. <%=allPlatos[i].precio%></p>
-                <p class="info-adicional"><%= allPlatos[i].descripcion %></p>
+    
+    <!-- <div class="row">
+        <div class="col-md-8"> -->
+            <form class="w-100 me-3 my-3 mb-3" role="search">
+                <input type="search" class="form-control fs-5" placeholder="Buscar..." aria-label="Search">
+            </form>
+            <div class="botonesfiltro d-flex gap-2 pb-3">
+                <button class="btn btn-light rounded-pill px-3" type="button">Todos</button>
+                <button class="btn btn-light rounded-pill px-3" type="button">Platos</button>
+                <button class="btn btn-light rounded-pill px-3" type="button">Productos</button>
             </div>
-        <%}%>
+            <div class="container">
+                <% for(let i=0; i<allPlatos.length; i++) {%>
+                    <div class="plato" id="plato<%=i%>">
+                        <form class="formOrden" data-index="<%= i %>">
+                            <input type="hidden" id="mesaNumero" value="<%= mesa.numero %>">
+                            <input type="hidden" name="idPLato" class="id" value="<%= allPlatos[i].idPLato %>">
+                            <input type="hidden" name="nombre" class="nombre" value="<%= allPlatos[i].nombre %>">
+                            <button class="rounded-circle btn-add" type="submit">+</button>
+                        </form>
+                        <h5><%=allPlatos[i].nombre%></h5>
+                        <p>s/. <%=allPlatos[i].precio%></p>
+                        <p class="info-adicional"><%= allPlatos[i].descripcion %></p>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+        <!------------------------------------------------------->
+        <!-- Button to toggle sidebar -->
+        <button class="btn btn-primary btn-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+            <i class="bi bi-caret-left-fill"></i></button>
+
+        <!-- Sidebar -->
+        <div class="offcanvas offcanvas-end" id="sidebar" aria-labelledby="sidebarLabel">
+            <div class="offcanvas-header">
+                <h4 id="sidebarLabel">Pedido Actual</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body order-sidebar" id="orderSidebar">
+                <div class="d-flex justify-content-end">
+                    <button id="enviar-pedido" class="btn btn-primary rounded-pill px-3 mb-4">Registrar Pedido</button>
+                </div>
+                <ul class="nav flex-column fs-5" id="orderList">
+                    
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+
 <%- include('partials/footer'); -%>
+
+<script>
+    document.querySelectorAll('.formOrden').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe
+            
+            // Obtén los valores ingresados en los campos del formulario
+            var id = this.querySelector('.id').value;
+            var nombre = this.querySelector('.nombre').value;
+            
+            // // Crea un nuevo elemento de lista con los datos del pedido
+            // var nuevoElemento = document.createElement('li');
+            // nuevoElemento.textContent = id + '  ' + nombre;
+            
+            // // Agrega el nuevo pedido a la lista de pedidos
+            // var listaPedido = document.getElementById('orderList');
+            // listaPedido.appendChild(nuevoElemento);
+
+            // Obtén el elemento de la lista basado en el id
+            var liElemento = document.querySelector(`#orderList li.li-${id}`);
+            
+            if (liElemento) {
+                // Si el li ya existe, incrementa la cantidad
+                var cantidadSpan = liElemento.querySelector('.cantidad');
+                var cantidadActual = parseInt(cantidadSpan.textContent, 10);
+                cantidadSpan.textContent = cantidadActual + 1;
+            } else {
+                // Si el li no existe, crea un nuevo li
+                var nuevoElemento = document.createElement('li');
+                nuevoElemento.classList.add('li');
+                nuevoElemento.classList.add(`li-${id}`);
+                nuevoElemento.id = `li-${id}`;
+                nuevoElemento.innerHTML = `${nombre} x<span class="cantidad">1</span>`;
+                document.getElementById('orderList').appendChild(nuevoElemento);
+            }
+            
+        });
+    });
+
+    document.getElementById('enviar-pedido').addEventListener('click', function() {
+        var listaPedido = document.getElementById('orderList');
+        var plato = [];
+        var mesaNumero = document.getElementById('mesaNumero').value;
+        
+        // Recorre todos los elementos de la lista y extrae los datos
+        listaPedido.querySelectorAll('li').forEach(function(item) {
+            var id = item.id.replace('li-', '');
+            var cantidad = parseInt(item.querySelector('.cantidad').textContent, 10);
+            
+            plato.push({ id, cantidad });
+            // var texto = item.textContent.trim();
+            // var [id, ...nombreArray] = texto.split(' ');
+            // var nombre = nombreArray.join(' '); // Reconstruye el nombre en caso de que tenga espacios
+            
+            // pedido.push({ id, nombre });
+        });
+
+        // Envía los datos a la API
+        fetch('/api/registrar-orden', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ mesaNumero, plato })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Succeeeeess:', data);
+            // Aquí puedes manejar la respuesta de la API
+        })
+        .catch((error) => {
+            console.error('Errorrro:', error);
+        });
+    });
+</script>
