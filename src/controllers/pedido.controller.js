@@ -1,8 +1,11 @@
 import { Pedido } from '../models/pedido.model.js'
-
+//import { platos, mesas, ventas } from '../models/datos.model.js';
 //export class PedidoController {
 
 export class PedidoController {
+    //static cargarPagina(req, res) {
+    //    res.render('ordenes', {ventas: })
+    //}
     static async crearPedido(req, res) {
         try {
 
@@ -19,8 +22,8 @@ export class PedidoController {
         } catch (error) {
             res.status(500).json({
                 message: error.message
-            })
-        }
+                })
+            }
     }
 
     static async obtenerUno(req, res) {
@@ -46,3 +49,5 @@ export class PedidoController {
         }
     }
 }
+
+export default PedidoController

@@ -11,7 +11,7 @@ pedidoRouter.get("/pedido", PedidoController.obtenerTodos)
 
 
 
-
+//pedidoRouter.get("/ordenes", PedidoController.cargarPagina)
 
 
 export default pedidoRouter

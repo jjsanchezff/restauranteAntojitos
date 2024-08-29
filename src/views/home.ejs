@@ -3,7 +3,7 @@
         <h1>Home del sitio</h1>
         <p>pagina principal</p>
         <div class="">
-            <canvas id="myChart"></canvas>
+            <canvas id="myChart"></-canvas>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
         const ctx = document.getElementById('myChart').getContext('2d');
       
         new Chart(ctx, {
-            type: 'line',
+            type: 'line',   
             data: {
                 labels: fechas,
                 datasets: [{
