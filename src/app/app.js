@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 import ejs from 'ejs'
 import favicon from 'serve-favicon'
 import bodyParser from 'body-parser'
-
+import { authRouter } from '../router/auth.router.js'
 
 
 //initialization
@@ -45,8 +45,20 @@ app.use("/api/v1", productoRouter)
 app.use("/api/v1", platoRouter)
 app.use("/api/v1", pedidoRouter)
 app.use("/api/v1/bd/", bdRouter)
-// app.use("/", authRouter)
-// app.use("/home", indexRouter)
+app.use("/", authRouter)
+
+
+app.post('/auth', (req, res) => {
+    const user = req.body.user;
+    const pass = req.body.pass;
+
+    // Aquí puedes procesar los datos recibidos, por ejemplo, verificar el usuario y la contraseña
+    console.log('Usuario:', user);
+    console.log('Contraseña:', pass);
+
+    // Responder al cliente
+    res.send('Formulario recibido.');
+});
 
 // Mensaje por defecto si no existe
 app.use((req, res) => {
