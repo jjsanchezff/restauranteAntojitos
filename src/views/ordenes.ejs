@@ -5,7 +5,7 @@
         <div class="container">
             <% for(let i=0; i<allMesas.length; i++) {%>
                 <% let clase; %>
-                <%if (allMesas[i].estado == "Libre"){%>
+                <%if (allMesas[i].estado == "Disponible"){%>
                     <%clase = "mesaLib";%>
                 <%}else{%>
                     <%clase = "mesaOcup";%>

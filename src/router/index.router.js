@@ -14,8 +14,8 @@ indexRouter.get("/registrar-orden", IndexController.registrarOrden)
 indexRouter.get("/pedidos", IndexController.cargarPedidos)
 
 indexRouter.post('/submit', (req, res) => {
-    const { nombre, email } = req.body;
-    console.log(`Nombre: ${nombre}, Email: ${email}`);
+    const { id, nombre } = req.body;
+    console.log(`idPLato: ${id}, nombre: ${nombre}`);
     
     // Aquí puedes procesar los datos del formulario según tus necesidades
 
@@ -24,6 +24,8 @@ indexRouter.post('/submit', (req, res) => {
 });
 
 indexRouter.post("/api/pedidos", IndexController.mostrarConsola)
+
+indexRouter.post("/api/registrar-orden", IndexController.mostrarConsola)
 
 
 
