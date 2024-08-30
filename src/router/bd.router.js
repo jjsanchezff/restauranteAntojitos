@@ -5,11 +5,12 @@ import { Pedido } from "../models/pedido.model.js"
 import { Rol } from "../models/rol.js"
 import { Usuario } from "../models/usuario.js"
 import { Venta } from "../models/venta.model.js"
+import { Whitelist } from "../models/whitelist.model.js"
 
 const bdRouter = Router()
 
 bdRouter.post("/crear", async (req, res) => {
-    await con_sequelize.sync({force: true})
+    await con_sequelize.sync({alter: true})
     await con_sequelize.query('ALTER TABLE producto AUTO_INCREMENT = 100')
     res.send("jeje")
 })

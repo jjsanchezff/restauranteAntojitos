@@ -1,11 +1,11 @@
 <%- include('partials/header'); -%>
     <div class="container">
-        <h1>Órdenes</h1>
+        <h1 class="pt-4">Órdenes</h1>
         <p>Seleccione una mesa</p>
         <div class="container">
             <% for(let i=0; i<allMesas.length; i++) {%>
                 <% let clase; %>
-                <%if (allMesas[i].estado == "Disponible"){%>
+                <%if (allMesas[i].estado == "Libre"){%>
                     <%clase = "mesaLib";%>
                 <%}else{%>
                     <%clase = "mesaOcup";%>

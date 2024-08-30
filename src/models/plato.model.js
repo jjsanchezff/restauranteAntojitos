@@ -70,7 +70,7 @@ Pedido_Plato.init({
         allowNull: true
     },
     precioUnitario: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT(6,2),
         allowNull: true
     }
 }, {

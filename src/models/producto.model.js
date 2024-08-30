@@ -66,7 +66,7 @@ Pedido_Producto.init({
         allowNull: true
     },
     precioUnitario: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT(6,2),
         allowNull: false
     }
 }, {

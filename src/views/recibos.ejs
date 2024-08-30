@@ -1,10 +1,10 @@
 <%- include('partials/header'); -%>
     <div class="container">
-        <h1>Recibos</h1>
+        <h1 class="pt-4">Recibos</h1>
         <p>Seleccione una mesa</p>
         <div class="container">
             <% for(let i=0; i<allMesas.length; i++) {%>
-                <%if (allMesas[i].estado == 1){%>
+                <%if (allMesas[i].estado == "ocupada"){%>
                     <div class="recibo">
                         <h5>Mesa <%=allMesas[i].numero%></h5>
                         <p>Capacidad: <%=allMesas[i].capacidad%></p>
