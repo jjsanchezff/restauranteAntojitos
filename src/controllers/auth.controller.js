@@ -11,11 +11,11 @@ export class AuthController {
         res.render('login')
     }
     static auth(req, res) {
-        //console.log(req.body)
         const { user, pass } = req.body
+        //console.log(req.body)
         console.log(user + " " + pass)
-
-
+        
+        
         res.send("Datos recibidos")
         
     }
